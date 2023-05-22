@@ -1,0 +1,16 @@
+body{
+    background-color: bisque;
+}
+
+nav{
+    width: 100%;
+    
+    text-align: center;
+}
+.panel
+{
+    font-size: 50px;
+    color: brown;
+    
+    border:navy solid 1px ;
+}
