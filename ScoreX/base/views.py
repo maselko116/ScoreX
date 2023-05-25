@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from .forms import SignupForm
 from item.models import Category, Item
 # Create your views here.
 def index(request):
@@ -12,3 +12,10 @@ def index(request):
     })
 def style(request):
     return render(request, 'frame.html')
+
+def signup(request):
+    form = SignupForm()
+    return render(request, 'base/signup.html', {
+        'form': form
+
+    })
