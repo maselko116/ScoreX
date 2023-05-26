@@ -14,7 +14,7 @@ nav{
     display: flex;
     float: left;
     gap: 20px;
-    padding: 20px;
+    padding: 30px;
 
 }
 .panel
@@ -26,7 +26,12 @@ nav{
 .things
 {
     width: 100%;
-    height: 200px;
+    height: 400px;
     background-color: grey;
     color: brown;
+}
+.cart
+{
+    color: aqua;
+
 }

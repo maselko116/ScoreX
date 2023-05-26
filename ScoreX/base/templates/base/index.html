@@ -3,7 +3,7 @@
 {% block content %}
 <h1> Testtowy tekst 122 </h1>
 
-<div class="things">
+<div >
     <h2> NEWEST ITEMS </h2>
     <div>
         {% for item in items %}
@@ -16,7 +16,7 @@
                         <h2>  {{item.price}} </h2>
 
                     </div>
-
+                    <a class='cart' href="{% url 'base:add' %}"> ADD ITEMS FOR CART </a>
                 </a>
             </div>
         {% endfor %}

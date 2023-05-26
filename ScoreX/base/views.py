@@ -19,3 +19,5 @@ def signup(request):
         'form': form
 
     })
+def add_to_cart(request):
+    return render(request, 'base/shopping_cart.html')

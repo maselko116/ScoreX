@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'item',
-    'base.apps.BaseConfig', 
+    'base', 
 
 ]
 
@@ -121,7 +121,7 @@ USE_TZ = True
 
 STATIC_URL = 'base/static/'
 MEDIA_URL = 'media/'
-
+STATIC_ROOT = "/Users/MasloMac/Desktop/PROJEKT/ScoreX/base/static"
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
