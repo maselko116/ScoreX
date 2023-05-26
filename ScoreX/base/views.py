@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import SignupForm
 from item.models import Category, Item
 # Create your views here.
@@ -14,7 +14,15 @@ def style(request):
     return render(request, 'frame.html')
 
 def signup(request):
-    form = SignupForm()
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+
+            return redirect('/login')
+    else:
+        form = SignupForm()
     return render(request, 'base/signup.html', {
         'form': form
 

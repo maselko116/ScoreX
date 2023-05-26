@@ -19,18 +19,12 @@
         <label style="display: block;"> Username </label>
         {{form.username}}
     </div>
-    <div class =  "signup_boxes">
-        <label style="display: block;"> email </label>
-        {{form.email}}
-    </div>
+  
     <div class =  "signup_boxes">
         <label style="display: block;"> password </label>
-        {{form.password1}}
+        {{form.password}}
     </div>
-    <div class =  "signup_boxes">
-        <label style="display: block;"> repeat password </label>
-        {{form.password2}}
-    </div>
+    
     
     {% if form.errors or form.non_field_errors %}
         <div>

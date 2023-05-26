@@ -35,3 +35,42 @@ nav{
     color: aqua;
 
 }
+.signing
+{
+  background-color: #333333;
+  margin-left: 20px;
+  color: black;
+  padding: 10px 20px;
+  border: 1px solid black;
+  border-radius: 4px;
+  font-size: 16px;
+}
+.signing:hover {
+    background-color: #555555;
+  }
+
+  .signing:focus {
+    outline: none;
+  }
+  .sbm
+  {
+    color: black;
+    background-color: rgb(132, 18, 18);
+    border-radius: 10%;
+    padding: 10px;
+    font-weight: 800;
+  }
+  .signup_boxes
+  {
+    padding: 10px;
+    display: block;
+  }
+  #formula1{
+
+    margin-left: 50px;
+  }
+  .my-input
+  {
+    padding: 10px;
+    border-radius: 15%;
+  }
