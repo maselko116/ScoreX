@@ -8,9 +8,15 @@ nav{
     width: 100%;
     border:navy solid 1px ;
     text-align: center;
+    height: 150px;
 }
 .things_DIV
 {
+    
+    margin-left: 1px;
+    margin-bottom: 1px;
+    width: 425px;
+    border: solid black 2px;
     display: flex;
     float: left;
     gap: 20px;
@@ -19,25 +25,32 @@ nav{
 }
 .panel
 {
+   
     font-size: 50px;
     color: black;
    
 }
 .things
 {
+    
     width: 100%;
-    height: 400px;
-    background-color: grey;
+    height: 800px;
+    background-color: #6d6565;
     color: brown;
 }
 .cart
 {
-    color: aqua;
+    margin-left: 30px;
+    padding: 20px;
+    color: orange;
 
 }
 .signing
 {
-  background-color: #333333;
+    font-weight: 600;
+float: right;
+margin-right: 30px;
+  background-color: #4e4d4d;
   margin-left: 20px;
   color: black;
   padding: 10px 20px;
@@ -52,6 +65,24 @@ nav{
   .signing:focus {
     outline: none;
   }
+  .logging{
+    font-weight: 600;
+   float: right;
+    background-color: rgba(212, 52, 52, 0.735);
+    margin-left: 20px;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-size: 16px;
+  }.logging:hover {
+    background-color: #555555;
+  }
+
+  .loggins:focus {
+    outline: none;
+  }
+
   .sbm
   {
     color: black;
@@ -73,4 +104,29 @@ nav{
   {
     padding: 10px;
     border-radius: 15%;
+  }
+  #item_name_header
+  {
+    color: rgb(70, 70, 70);
+    font-size: 25px;
+    text-transform: uppercase;
+  }
+  #item_name_dscrp
+  {
+    text-decoration: none;
+    font-size: 14px;
+    color: black;
+    font-weight: 250;
+
+  }
+  .back_to_main_button
+  {
+        top: 40px;
+        left: 50px;
+        position: absolute;
+        padding: 15px;
+        background-color: gray;
+        color: black;
+        font-size: 20px;
+        border: black solid 1px;
   }

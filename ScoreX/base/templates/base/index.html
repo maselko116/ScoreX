@@ -10,13 +10,19 @@
             <div class="things_DIV"> 
                 <a href="#">
                     <div>
-                        <h2>  {{item.name}} </h2>
+                        <h2 id="item_name_header">  {{item.name}} </h2>
                     </div>
                     <div>
-                        <h2>  {{item.price}} </h2>
+                        <h2 id="item_name_dscrp">  {{item.description}} </h2>
 
                     </div>
-                    <a class="cart" href="{% url 'base:add' %}"> ADD ITEMS FOR CART </a>
+                    <div>
+                        <h2>  {{item.price}} zł </h2>
+
+                    </div>
+                   
+                    <a href="{% url 'base:add_to_cart' item_id=item.id %}">Add to Cart</a>
+
                 </a>
             </div>
         {% endfor %}

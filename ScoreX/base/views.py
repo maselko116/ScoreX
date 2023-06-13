@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import SignupForm
 from item.models import Category, Item
+
+
 # Create your views here.
 def index(request):
     categories = Category.objects.all()
@@ -27,5 +29,17 @@ def signup(request):
         'form': form
 
     })
-def add_to_cart(request):
-    return render(request, 'base/shopping_cart.html')
+def add_to_cart(request, item_id):
+    if request.user.is_authenticated:
+        try:
+            item = Item.objects.get(id=item_id)
+            request.user.cart_items.add(item)
+        except Item.DoesNotExist:
+            return render(request, 'base/error.html', {'error_message': 'Item does not exist.'})
+    else:
+        return redirect('/login')
+    
+    return render(request, 'base/shopping_cart.html', {'item': item})
+
+
+ 
