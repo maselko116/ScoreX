@@ -1,6 +1,7 @@
 {% extends 'base/frame.html' %}
  
 {% block content %}
+
 <h1> Testtowy tekst 122 </h1>
 
 <div >
@@ -20,11 +21,14 @@
                         <h2>  {{item.price}} zł </h2>
 
                     </div>
-                   
-                    <a href="{% url 'base:add_to_cart' item_id=item.id %}">Add to Cart</a>
-
+                    <a href="{% url 'base:add_item' item.id %}">Add to cart</a>
+   
+      
+                            
                 </a>
             </div>
+            
+
         {% endfor %}
     </div>
 

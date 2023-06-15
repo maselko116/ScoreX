@@ -6,7 +6,7 @@
 
 
 {%block content%}
-<div>
+<!-- <div>
     <h1> Sign Up</h1>
 </div>
 
@@ -37,4 +37,10 @@
 
     <button class="sbm"> SUBMIT </button>
 </form>
-{%endblock%}
+ -->
+ <form action="" method="POST">
+    {% csrf_token %}
+    {{login_form}}
+    <button type="submit">login</button>
+ </form>
+ {% endblock %}

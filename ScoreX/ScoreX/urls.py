@@ -25,6 +25,7 @@ urlpatterns = [
     # path('items/', include('item.urls')),
     
     path('', include('base.urls')),
+    
     path('admin/', admin.site.urls),
 
     
