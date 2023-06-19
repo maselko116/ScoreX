@@ -12,6 +12,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    
 class Item(models.Model):
     category = models.ForeignKey(Category, related_name='items', on_delete=models.CASCADE)
     name = models.CharField(max_length=255, null=True)
@@ -19,6 +20,7 @@ class Item(models.Model):
     image = models.ImageField(upload_to='item_images', blank=True, null=True)
     price = models.FloatField()
     digital = models.BooleanField(default=False, null=True, blank=False)
+    
     def __str__(self):
         return self.name
     

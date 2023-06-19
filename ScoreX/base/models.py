@@ -8,7 +8,7 @@ class Customer(models.Model):
     email = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
@@ -17,7 +17,7 @@ class Order(models.Model):
     transaction_id = models.CharField(max_length=255, null=True)
 
     def __str__(self):
-        return str(self.id)
+        return f"Cart {self.id}"
     
 class OrderItem(models.Model):
     product = models.ForeignKey(Item, on_delete=models.SET_NULL, blank=True, null=True)
@@ -46,12 +46,12 @@ class Order_Details(models.Model):
         return self.address    
 
 class Cart(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Cart {self.id}"
-
+    
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Item, on_delete=models.SET_NULL, blank=True, null=True)

@@ -1,36 +1,54 @@
 {% extends 'base/frame.html' %}
- 
+
 {% block content %}
 
-<h1> Testtowy tekst 122 </h1>
-
-<div >
-    <h2> NEWEST ITEMS </h2>
+<div>
+    <h2>NEWEST ITEMS</h2>
     <div>
         {% for item in items %}
-            <div class="things_DIV"> 
-                <a href="#">
-                    <div>
-                        <h2 id="item_name_header">  {{item.name}} </h2>
-                    </div>
-                    <div>
-                        <h2 id="item_name_dscrp">  {{item.description}} </h2>
+        <div class="things_DIV">
+            <a href="#">
+                <div>
+                    <h2 id="item_name_header">{{ item.name }}</h2>
+                </div>
+                <div>
+                    <h2 id="item_name_dscrp">{{ item.description }}</h2>
+                </div>
+                <div>
+                    <h2>{{ item.price }} zł</h2>
+                </div>
+                <button onclick="location.href='{% url 'base:add_item' item.id %}'"  >Add 1 to cart</button>
+                
+            </a>
 
-                    </div>
-                    <div>
-                        <h2>  {{item.price}} zł </h2>
-
-                    </div>
-                    <a href="{% url 'base:add_item' item.id %}">Add to cart</a>
-   
-      
-                            
-                </a>
-            </div>
-            
-
+          
+        </div>
         {% endfor %}
-    </div>
 
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="message message-{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    
+    </div>
 </div>
+
+<script>
+  
+  $(document).ready(function() {
+  // Dodaj klasę "message-show" do każdego komunikatu
+  $(".message").addClass("message-show");
+
+  // Po 3 sekundach usuń klasę "message-show", aby schować komunikaty
+  setTimeout(function() {
+    $(".message").removeClass("message-show");
+  }, 3000);
+});
+
+</script>
+
 {% endblock %}

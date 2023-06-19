@@ -8,6 +8,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 
+from notifications.signals import notify
+
 def logout_req(request):
     logout(request)
     return redirect("base:index")
@@ -27,9 +29,11 @@ def add_item(request,item_id):
     cart = Cart.objects.get(customer=customer)
     if cart:
         CartItem.objects.create(cart=cart,product=item,quantity=1)
+        
     else:
         cart = Cart.objects.create(customer=customer)
         CartItem.objects.create(cart=cart,product=item,quantity=1)
+    messages.success(request, 'Added to cart')
     return redirect('base:index')
 
 def style(request):
@@ -95,5 +99,4 @@ def add_to_cart(request):
     return render(request, 'base/shopping_cart.html', context)
 
 def profile(request):
-    # Obsługa profilu użytkownika
     return render(request, 'base/profile.html')

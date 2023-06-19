@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-
+import notifications.urls
 from . import views
 from .forms import LoginForm
 
