@@ -17,7 +17,7 @@
                 <div>
                     <h2>{{ item.price }} zł</h2>
                 </div>
-                <button onclick="location.href='{% url 'base:add_item' item.id %}'"  >Add 1 to cart</button>
+                <button onclick=" location.href='{% url 'base:add_item' item.id %}' "  >Add 1 to cart</button>
                 
             </a>
 
@@ -33,7 +33,6 @@
         </ul>
     {% endif %}
 
-    
     </div>
 </div>
 

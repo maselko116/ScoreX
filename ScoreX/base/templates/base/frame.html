@@ -29,11 +29,11 @@
             </div>
             {% if user.is_authenticated %}
             <a class="CART" href="{% url 'base:logout' %}"> logout </a>
-            <a class="CART" href="{% url 'base:add_to_cart' %}"> CART </a>
+            <a class="CART" href="{% url 'base:go_to_cart' %}"> CART </a>
             {% else %}
             <a class="signing" href="{% url 'base:signup' %}"> SIGN UP </a>
             <a class="logging" href="{% url 'base:login' %}"> LOG IN </a>
-            <a class="CART" href="{% url 'base:add_to_cart' %}"> CART </a>
+            <a class="CART" href="{% url 'base:go_to_cart' %}"> CART </a>
             {% endif %}
             
         </nav>

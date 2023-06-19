@@ -1,0 +1,26 @@
+{% extends 'base/frame.html' %}
+
+{% block content %}
+
+<div style="font-size: 20px; color: black;">
+    <h1 style="font-size: 40px;">ORDER DETAILS</h1>
+    <div>
+        <h3>Address: {{ order_details.address }}</h3>
+        <h3>Email: {{ order_details.email }}</h3>
+        <h3>Phone: {{ order_details.phone }}</h3>
+        <h3>City: {{ order_details.city }}</h3>
+        <h3>Date Added: {{ order_details.date_added }}</h3>
+        
+        <h3>Cart:</h3>
+        <ul>
+            {% for item in order_items %}
+            <li>
+                <h4>Product: {{ item.product.name }}</h4>
+                <p>Quantity: {{ item.quantity }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

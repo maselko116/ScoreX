@@ -7,8 +7,12 @@ from .forms import LoginForm, SignupForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-
+from .models import Order_Details
 from notifications.signals import notify
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 def logout_req(request):
     logout(request)
@@ -16,12 +20,40 @@ def logout_req(request):
 # Create your views here.
 def index(request):
     categories = Category.objects.all()
-    items = Item.objects.all()
+    items = Item.objects.all()  
 
     return render(request, 'base/index.html', {
         'categories': categories,
         'items': items,
     })
+
+
+def go_to_cart(request):
+    if request.user.is_authenticated:
+        customer, created= Customer.objects.get_or_create(user=request.user)
+        
+        cart, created = Cart.objects.get_or_create(customer=customer)
+        if request.method == 'POST':
+            product_id = request.POST.get('product_id')
+            quantity = int(request.POST.get('quantity', 1))
+
+            product = Item.objects.get(id=product_id)
+            cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+            cart_item.quantity += quantity
+            cart_item.save()
+
+            return redirect('base:shopping_cart')
+
+        else:
+            items = cart.items.all()
+
+    else:
+        items = []
+        return redirect('/login')
+
+    context = {'items': items}
+    return render(request, 'base/shopping_cart.html', context)
+
 
 def add_item(request,item_id):
     item = Item.objects.get(id=item_id)
@@ -72,31 +104,16 @@ def login_request(request):
 	form = AuthenticationForm()
 	return render(request=request, template_name="base/login.html", context={"login_form":form})
 
-def add_to_cart(request):
-    if request.user.is_authenticated:
-        customer, created= Customer.objects.get_or_create(user=request.user)
+
+def sending_data(request):
+    order_details = Order_Details.objects.first()
+    order_items = OrderItem.objects.filter(order=order_details.order)
+    
+    context = {
         
-        cart, created = Cart.objects.get_or_create(customer=customer)
-        if request.method == 'POST':
-            product_id = request.POST.get('product_id')
-            quantity = int(request.POST.get('quantity', 1))
+        'order_details': order_details,
+        'order_items': order_items,
+    }
+    return render(request, 'base/sending_data.html', context)
 
-            product = Item.objects.get(id=product_id)
-            cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
-            cart_item.quantity += quantity
-            cart_item.save()
 
-            return redirect('base:shopping_cart')
-
-        else:
-            items = cart.items.all()
-
-    else:
-        items = []
-        return redirect('/login')
-
-    context = {'items': items}
-    return render(request, 'base/shopping_cart.html', context)
-
-def profile(request):
-    return render(request, 'base/profile.html')
