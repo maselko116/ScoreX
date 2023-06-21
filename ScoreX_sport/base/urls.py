@@ -15,7 +15,8 @@ urlpatterns = [
     path('shopping_cart/', views.go_to_cart, name='go_to_cart'),
     path('sending_data/', views.sending_data, name='sending_data'),
     path('signup/', views.signup, name='signup'),
-
+    path('order/', views.order_form, name='order_form'),
+    path('delete_item/<int:item_id>/', views.delete_item, name='delete_item'),
     #path('shopping_cart/', views.add_to_cart, name='add_to_cart'),
     #path('login/', auth_views.LoginView.as_view(template_name='base/login.html', authentication_form=LoginForm), name = 'login'),
 ]

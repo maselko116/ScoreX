@@ -264,6 +264,15 @@ background-color: #60646de1;
     margin: 0;
 }
 
+#final_order {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
 .cart-total {
     font-size: 18px;
     font-weight: bold;
@@ -285,7 +294,17 @@ background-color: #60646de1;
   font-weight: bold;
 }
 
-
+.delete_item
+{
+  float: right;
+  text-align: center;
+  height: auto;
+  font-weight: bold;
+  padding: 6px;
+  border-radius: 4px;
+  background-color: #a94442;
+  
+}
 .cart-buttons a {
     padding: 10px 20px;
     background-color: #333;
@@ -304,7 +323,7 @@ background-color: #60646de1;
   margin-top: 20px;
   margin-left: 50px;
   padding: 10px 20px;
-  background-color: #be7d27;
+  background-color: #d18a2d;
   color: #fff;
   text-decoration: none;
   font-weight: bold;
@@ -322,7 +341,7 @@ background-color: #60646de1;
   font-weight: bold;
   padding: 10px 20px;
   font-size: 18px;
-  background-color: #ffc107;
+  background-color: #d18a2d;
   color: #212529;
   border: none;
   border-radius: 5px;

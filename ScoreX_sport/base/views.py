@@ -34,34 +34,27 @@ def index(request):
 def go_to_cart(request):
     if request.user.is_authenticated:
         customer = Customer.objects.get(user=request.user)
-        cart = Cart.objects.get(customer=customer)
-        items = CartItem.objects.filter(cart=cart)
-
-        total_price = 0 
-
-        if request.method == 'POST':
+        try:
+            cart = Cart.objects.get(customer=customer)
+            items = CartItem.objects.filter(cart=cart)
             
-            order = Order.objects.create(customer=customer)
-        
-            if items:
-                for item in items:
-                    OrderItem.objects.create(product=item.product, order=order)
-                    total_price += item.product.price * item.quantity  # Dodanie ceny produktu do łącznej ceny koszyka
-                    item.delete()  # Usunięcie elementu koszyka
-                cart.delete()  # Usunięcie koszyka
-                return redirect('base:sending_data')
-        
-        # Obliczenie łącznej ceny koszyka
-        for item in items:
-            total_price += item.product.price * item.quantity
-        
-        context = {'items': items,
+            total_price = 0 
+            for item in items:
+                total_price += item.product.price * item.quantity
+
+            context = {
+                'items': items,
                 'cart': cart,
                 'total_price': total_price
-                } 
-        return render(request, 'shopping_cart.html', context)
+            } 
+            return render(request, 'shopping_cart.html', context)
+        except Cart.DoesNotExist:
+            messages.warning(request, 'Dodaj przedmioty do koszyka.')
+            return redirect('base:index') 
     else:
-         return redirect('/login')
+        return redirect('/login')
+
+
 
 @login_required
 def add_item(request, item_id):
@@ -134,6 +127,36 @@ def sending_data(request):
     return render(request, 'sending_data.html', context)
 
 
+def order_form(request):
+    form = OrderDetailsForm()
+    customer = Customer.objects.get(user=request.user)
+    cart = Cart.objects.get(customer=customer)
+    items = CartItem.objects.filter(cart=cart)
+
+    if request.method == 'POST':
+        form = OrderDetailsForm(request.POST)
+        if form.is_valid():
+            order = Order.objects.create(customer=customer)
+            if items:
+                for item in items:
+                    OrderItem.objects.create(product=item.product, order=order)
+                    item.delete()  # Delete cart item
+                cart.delete()  # Delete cart
+
+            order_details = form.save(commit=False)
+            order_details.customer = customer
+            order_details.order = order
+            order_details.save()
+
+            return redirect('base:index')
+
+    context = {'order_form': form, 'items': items}
+    messages.success(request, 'Items has been ordered')
+    return render(request, 'order_form.html', context)
+
+
+
+
 def sending_data(request):
     if request.method == 'POST':
         form = OrderDetailsForm(request.POST)
@@ -146,3 +169,20 @@ def sending_data(request):
     
     return render(request, 'sending_data.html', {'order_details_form': form})
 
+
+@login_required
+def delete_item(request, item_id):
+    
+    cart_item = CartItem.objects.get(id=item_id)
+    cart = cart_item.cart
+    cart_item.delete()
+
+    # Obliczenie łącznej ceny koszyka
+    items = CartItem.objects.filter(cart=cart)
+    total_price = sum(item.product.price * item.quantity for item in items)
+    cart.total_price = total_price
+    messages.success(request, 'Item has been deleted')
+    cart.save()
+    
+    return redirect('base:index')
+    

@@ -20,7 +20,7 @@
        
     </head>
     <body>
-       <div class="main-container" style="min-height: 3000px; background-color: ;">
+       <div class="main-container" style="min-height: 3000px;">
         {% if request.user.is_authenticated %}
         <div class="welcome_bar">
             <span class="logged-in">You are logged in with:</span>
@@ -53,6 +53,19 @@
           <div class="things">
             {% block content %}
             {% endblock %}
+            <script>
+  
+                $(document).ready(function() {
+                // Dodaj klasę "message-show" do każdego komunikatu
+                $(".message").addClass("message-show");
+              
+                // Po 3 sekundach usuń klasę "message-show", aby schować komunikaty
+                setTimeout(function() {
+                  $(".message").removeClass("message-show");
+                }, 3000);
+              });
+              
+              </script>
           </div>
     </div>
           <script type="text/javascript" scr="{% static '/js/cart.js' %}">  </script>

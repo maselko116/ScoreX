@@ -1,0 +1,17 @@
+{% extends 'frame.html' %}
+
+
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+    <form style="padding: 20px;" method="POST">
+        {% csrf_token %}
+        {{order_form|crispy}}
+        <button  id="final_order" type="submit">Submit</button>
+        
+
+    </form>
+    
+
+{% endblock %}

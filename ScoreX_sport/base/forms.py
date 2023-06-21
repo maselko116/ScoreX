@@ -24,3 +24,4 @@ class OrderDetailsForm(ModelForm):
         class Meta:
             model = Order_Details
             fields = "__all__"
+            exclude = ('customer','order','date_added')
