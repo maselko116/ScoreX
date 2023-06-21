@@ -13,6 +13,10 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 
+from .forms import OrderDetailsForm
+
+
+
 def logout_req(request):
     logout(request)
     return redirect("base:index")
@@ -26,36 +30,38 @@ def index(request):
         'items': items,
     })
 
-@login_required
+
 def go_to_cart(request):
-    customer = Customer.objects.get(user=request.user)
-    cart = Cart.objects.get(customer=customer)
-    items = CartItem.objects.filter(cart=cart)
+    if request.user.is_authenticated:
+        customer = Customer.objects.get(user=request.user)
+        cart = Cart.objects.get(customer=customer)
+        items = CartItem.objects.filter(cart=cart)
 
-    total_price = 0 
+        total_price = 0 
 
-    if request.method == 'POST':
+        if request.method == 'POST':
+            
+            order = Order.objects.create(customer=customer)
         
-        order = Order.objects.create(customer=customer)
-       
-        if items:
-            for item in items:
-                OrderItem.objects.create(product=item.product, order=order)
-                total_price += item.product.price * item.quantity  # Dodanie ceny produktu do łącznej ceny koszyka
-                item.delete()  # Usunięcie elementu koszyka
-            cart.delete()  # Usunięcie koszyka
-            return redirect('base:sending_data')
-    
-    # Obliczenie łącznej ceny koszyka
-    for item in items:
-        total_price += item.product.price * item.quantity
-    
-    context = {'items': items,
-               'cart': cart,
-               'total_price': total_price
-               } 
-    return render(request, 'shopping_cart.html', context)
-
+            if items:
+                for item in items:
+                    OrderItem.objects.create(product=item.product, order=order)
+                    total_price += item.product.price * item.quantity  # Dodanie ceny produktu do łącznej ceny koszyka
+                    item.delete()  # Usunięcie elementu koszyka
+                cart.delete()  # Usunięcie koszyka
+                return redirect('base:sending_data')
+        
+        # Obliczenie łącznej ceny koszyka
+        for item in items:
+            total_price += item.product.price * item.quantity
+        
+        context = {'items': items,
+                'cart': cart,
+                'total_price': total_price
+                } 
+        return render(request, 'shopping_cart.html', context)
+    else:
+         return redirect('/login')
 
 @login_required
 def add_item(request, item_id):
@@ -127,4 +133,16 @@ def sending_data(request):
     }
     return render(request, 'sending_data.html', context)
 
+
+def sending_data(request):
+    if request.method == 'POST':
+        form = OrderDetailsForm(request.POST)
+        if form.is_valid():
+            order_details = form.save()
+            # Wykonaj inne operacje, takie jak zapisanie przedmiotów zamówienia itp.
+            return redirect('order_details', order_id=order_details.id)
+    else:
+        form = OrderDetailsForm()
+    
+    return render(request, 'sending_data.html', {'order_details_form': form})
 
