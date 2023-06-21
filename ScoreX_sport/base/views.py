@@ -50,7 +50,8 @@ def go_to_cart(request):
     for item in items:
         total_price += item.product.price * item.quantity
     
-    context = {'items': items, 
+    context = {'items': items,
+               'cart': cart,
                'total_price': total_price
                } 
     return render(request, 'shopping_cart.html', context)

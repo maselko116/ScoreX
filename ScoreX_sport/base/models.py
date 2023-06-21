@@ -47,6 +47,7 @@ class Cart(models.Model):
         self.total_price = total
         self.save()
 
+
     def __str__(self):
         return f"Cart {self.id}"
 

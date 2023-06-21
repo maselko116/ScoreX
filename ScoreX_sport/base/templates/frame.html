@@ -21,7 +21,10 @@
     <body>
        
         {% if request.user.is_authenticated %}
-        <div class="welcome_bar">You are logged in with: {{ request.user.username }}</div>
+        <div class="welcome_bar">
+            <span class="logged-in">You are logged in with:</span>
+            <span class="username">{{ request.user.username }}</span>
+        </div>
         {% else %}
         {% endif %}
         <header class="p-3 bg-secondary text-white">
