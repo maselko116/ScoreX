@@ -1,0 +1,63 @@
+{% extends 'frame.html' %}
+{% load static %}
+{% block content %}
+
+<div class="home-container-new">
+    <div class="home-text-container bg-secondary">
+        <h3 >WELCOME TO OUR SPORT SHOP</h3>
+    </div>
+    
+    <div class="home-image-container-new">
+        <img src="{% static '/img/background-image-home.jpg' %}" alt=" gówno" id="home-photo">
+    </div>
+
+    <div class="home-container-data">
+
+        {% for item in items %}
+        <div class="home-item-data bg-secondary">
+            <div class="item-image-container">
+                <img src="{% if item.image%} {{item.image.url}} {% endif %}" alt=" zdjecuie itemu" id="item-photo">
+            </div>
+            <div class="item-data-container">
+                <div class="item-upper-data">
+                    <h2>{{item.name}} - {{item.price}} zł</h2>
+                </div>
+                <hr>
+                <div class="item-lower-data">
+                    <h2>Description: </h2>
+                    <p>{{item.description}}</p>
+                </div>
+                <hr>
+                <div class="item-add-button">
+                    <button onclick=" location.href='{% url 'base:add_item' item.id %}' "  >Add this item to cart</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="message message-{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    </div>
+</div>
+
+<script>
+  
+  $(document).ready(function() {
+  // Dodaj klasę "message-show" do każdego komunikatu
+  $(".message").addClass("message-show");
+
+  // Po 3 sekundach usuń klasę "message-show", aby schować komunikaty
+  setTimeout(function() {
+    $(".message").removeClass("message-show");
+  }, 3000);
+});
+
+</script>
+
+{% endblock %}

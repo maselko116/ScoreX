@@ -1,0 +1,28 @@
+{% extends 'frame.html' %}
+{% block title %} SHOPPING CART{%endblock%}
+
+
+
+
+
+{%block content%}
+<a class = 'back_to_main_button' href="{% url 'base:index' %}"> <<-- BACK TO SHOPPING </a>
+<form method="POST" action="{% url 'base:sending_data' %}">
+  {% csrf_token %}
+  <button  type="submit" > ZAMOW </button> 
+</form>
+<div class="cart">
+  {% for item in items %}
+    <div class="cart-item">
+      <h3>{{ item.product.name }}</h3>
+      <p>Quantity: {{ item.quantity }}</p>
+      <p>Price: {{ item.product.price }}</p>
+    </div>
+  {% endfor %}
+  <p>Total Price: {{ cart.total_price }}</p>  <!-- Dodano wyświetlanie łącznej ceny koszyka -->
+</div>
+
+<a href="{% url 'base:sending_data' %}" style="color: black"> ZAMOW PRZEDMIOTY </a>
+
+
+{%endblock%}

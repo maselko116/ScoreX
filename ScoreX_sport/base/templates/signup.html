@@ -1,0 +1,46 @@
+{% extends 'frame.html' %}
+{% block title %} Sign Up {%endblock%}
+
+
+
+
+
+{%block content%}
+<div>
+    <h1> Sign Up</h1>
+</div>
+
+
+<form id="formula1" method="post" action=".">
+    {% csrf_token %}
+
+    
+    <div class =  "signup_boxes">
+        <label style="display: block;"> Username </label>
+        {{form.username}}
+    </div>
+    <div class =  "signup_boxes">
+        <label style="display: block;"> email </label>
+        {{form.email}}
+    </div>
+    <div class =  "signup_boxes">
+        <label style="display: block;"> password </label>
+        {{form.password1}}
+    </div>
+    <div class =  "signup_boxes">
+        <label style="display: block;"> repeat password </label>
+        {{form.password2}}
+    </div>
+    
+    {% if form.errors or form.non_field_errors %}
+        <div>
+            {% for field in form%}
+                {{field.errors}}
+            {%endfor%}
+            {{form.non_field_errors}}
+        </div>
+    {% endif %}
+
+    <button class="sbm"> SUBMIT </button>
+</form>
+{%endblock%}
